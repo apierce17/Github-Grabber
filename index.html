@@ -6,15 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
+    
+    <script src="https://kit.fontawesome.com/3245e9eb5f.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <form id="companySearch">
-        <label for="companyName">asdasd</label>
-        <input name="companyName" id="companyName" type="text">
-        <button id="searchCompany">Search</button>
-    </form>
+    <nav>
+        <img src="">
+    </nav>
 
+    <main>
+        <div class="search">
+            <form id="companySearch">
+                <label for="companyName">Search Company: </label>
+                <input name="companyName" id="companyName" type="text" placeholder="Enter Company">
+                <button type="button" id="searchCompany">Search</button>
+            </form>
+            <div class="recommended">
+                <p>Suggested:</p>
+                <button value="netflix">Netflix</button>
+                <button value="meta">Meta</button>
+                <button value="amazon">Amazon</button>
+            </div>
+            
+        </div>
+    
+    
+        <ul id="repositories"></ul>
+    </main>
+
+
+    <!-- <footer>
+        Made by Ashton Pierce
+    </footer> -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./Assets/JS/scripts.js"></script>
