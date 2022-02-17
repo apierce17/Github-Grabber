@@ -20,19 +20,22 @@
             <form id="companySearch">
                 <label for="companyName">Search Company: </label>
                 <input name="companyName" id="companyName" type="text" placeholder="Enter Company">
-                <button type="button" id="searchCompany">Search</button>
+                <button type="submit" id="searchCompany">Search</button>
             </form>
+            <span id="search-empty">Oops! Looks like the search is empty!</span>
+            <span id="search-failed">Oops! Looks like we can't find that company, try another one!</span>
             <div class="recommended">
                 <p>Suggested:</p>
-                <button value="netflix">Netflix</button>
-                <button value="meta">Meta</button>
-                <button value="amazon">Amazon</button>
+                <button value="Netflix">Netflix</button>
+                <button value="Google">Google</button>
+                <button value="Amazon">Amazon</button>
             </div>
-            
         </div>
     
     
-        <ul id="repositories"></ul>
+        <ul id="repositories">
+            <div id="page-tabs"></div>
+        </ul>
     </main>
 
 

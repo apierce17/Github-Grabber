@@ -127,7 +127,7 @@ main {
 }
 
 .repository-card h2 {
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .repo-details {
@@ -160,7 +160,6 @@ main {
 
 .stats {
     display: flex;
-    width: 10vw;
 }
 
 .stars i {
@@ -174,6 +173,11 @@ main {
 
 .languages span {
     font-size: 14px;
+}
+
+.languages i {
+    color: var(--light-blue);
+    margin-left: 15px;
 }
 
 .view-commits {
