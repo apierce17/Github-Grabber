@@ -130,7 +130,7 @@ $(document).ready( function() {
 
                                         $.each(getRepoCommits, function(i,e) {
                                         var commitMessage = getRepoCommits[i].commit.message;
-                                        var commitAuthor = getRepoCommits[i].committer.login;
+                                        var commitAuthor = getRepoCommits[i].commit.author.name;
                                         var commitSha = getRepoCommits[i].parents[0].sha;
                                         var commitUrl = getRepoCommits[i].parents[0].html_url;
                                         var commitCreated = getRepoCommits[i].commit.committer.date;
