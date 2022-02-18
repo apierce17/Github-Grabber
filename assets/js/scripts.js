@@ -49,7 +49,7 @@ $(document).ready( function() {
             // Get Company Info
             $.ajax({
                 dataType: "json",
-                url: 'https://api.github.com/orgs/' + searchedCompany.searchedCompany + '/repos?per_page=100&page=2',
+                url: 'https://api.github.com/orgs/' + searchedCompany.searchedCompany + '/repos?per_page=100&page=1',
                 success: function(getCompanyRepositories) { 
                     searchedCompany.companyAvatar = getCompanyRepositories[0].owner.avatar_url;
                     searchedCompany.companyName = getCompanyRepositories[0].owner.login;
