@@ -1,12 +1,5 @@
 $(document).ready( function() { 
 
-    $('#search-empty').hide();
-    $('#search-failed').hide();
-    $('.repo-commits').hide();
-    $('#current-company').hide();
-    $('.loading').hide();
-    $('#repositories').hide();
-
     var searchedCompany = {};
 
     // See API Rate Limit
@@ -114,7 +107,7 @@ $(document).ready( function() {
 
                                 $.ajax({
                                     dataType: "json",
-                                    url: 'https://api.github.com/repos/' + searchedCompany.searchedCompany + '/' + searchedCompany.searchedRepoCommits + '/commits',
+                                    url: 'https://api.github.com/repos/' + searchedCompany.searchedCompany + '/' + searchedCompany.searchedRepoCommits + '/commits?per_page=100',
                                     success: function(getRepoCommits) {
 
                                         $.each(getRepoCommits, function(i,e) {
