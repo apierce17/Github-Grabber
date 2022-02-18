@@ -4,7 +4,8 @@ $(document).ready( function() {
     $('#search-failed').hide();
     $('.repo-commits').hide();
     $('#current-company').hide();
-    
+    $('.loading').hide();
+    $('#repositories').hide();
 
     var searchedCompany = {};
 
@@ -24,6 +25,7 @@ $(document).ready( function() {
     // Search entered company on click
     $('#companySearch').submit( function(event) {
         event.preventDefault();
+        $('.loading').show();
         $('#repositories').empty();
         $('#page-tabs').empty();
         $('#current-company').empty();
@@ -97,6 +99,7 @@ $(document).ready( function() {
                             '            </div>' +
                             '    </div>' +
                             '</li>');
+                            $('#repositories').show();
 
                             });
                             
@@ -160,7 +163,7 @@ $(document).ready( function() {
                             pagnation()
                             });
                             function pagnation() {
-                                $('.repository-container').after('<ul id="repositories"></ul>');
+                                $('.repository-container');
                                 var rowsShown = 5;
                                 var rowsTotal = $('#repositories li').length;
                                 var numPages = rowsTotal/rowsShown;
@@ -194,5 +197,6 @@ $(document).ready( function() {
                     }, 200);
                 }
             }); 
+            $('.loading').hide();
         }});
 });
