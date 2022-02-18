@@ -4,44 +4,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Github Grabber</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
     
     <script src="https://kit.fontawesome.com/3245e9eb5f.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@300;400;800&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
 
     <nav>
-        <img src="">
+        <a aria-label="scroll to top" href="#">Github Grabber</a>
+        <div class="socials">
+            <a aria-label="go to my linkedin" href="" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a aria-label="go to project github" href="" target="_blank"><i class="fa-brands fa-github-square"></i></a>
+        </div>
+        
     </nav>
 
     <main>
         <div class="search">
+            <h1>Search a company</h1>
+            <span id="search-empty">Oops! Looks like the search is empty!</span>
+            <span id="search-failed">Oops! Looks like we can't find that one, try another!</span>
             <form id="companySearch">
                 <label for="companyName">Search Company: </label>
                 <input name="companyName" id="companyName" type="text" placeholder="Enter Company">
                 <button type="submit" id="searchCompany">Search</button>
             </form>
-            <span id="search-empty">Oops! Looks like the search is empty!</span>
-            <span id="search-failed">Oops! Looks like we can't find that company, try another one!</span>
+            
             <div class="recommended">
                 <p>Suggested:</p>
                 <button value="Netflix">Netflix</button>
                 <button value="Google">Google</button>
-                <button value="Amazon">Amazon</button>
+                <button value="Facebook">Facebook</button>
             </div>
         </div>
     
     
-        <ul id="repositories">
-            <div id="page-tabs"></div>
-        </ul>
+        <div id="current-company">
+                
+        </div>
+        <div class="repository-container">
+            <ul id="repositories"></ul>
+        </div>
+        
+        <div id="page-tabs"></div>
     </main>
 
 
-    <!-- <footer>
+    <footer>
         Made by Ashton Pierce
-    </footer> -->
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./Assets/JS/scripts.js"></script>

@@ -16,16 +16,24 @@
     --mid-grey: #8d8d8d;
     --grey: #E5E5E5;
     --white: #FFFFFF;
+    --error: #bd1044;
 
 }
 
 body {
-    background-color: var(--black);
+    background: url(../images/R\ \(7\).jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
     overflow-x: hidden;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-family: 'Raleway', sans-serif;
     color: var(--grey);
     min-height:100vh;
 }
+
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; }
+main { flex-grow: 1; }
 
 h2 {
     color: var(--white);
@@ -37,10 +45,54 @@ main {
     align-items: center;
 }
 
+/* Nav */
+
+nav {
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: 'Raleway', sans-serif;
+}
+
+nav a {
+    font-size: 26px;
+    font-weight: 400;
+    text-decoration: none;
+    color:var(--white);
+    letter-spacing: 1px;
+}
+
+nav i, #current-company i {
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    color:var(--white);
+}
+
+
 /* Search Bar */
 
 .search {
     width: 30vw;
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    padding: 10px 25px;
+}
+
+.search h1 {
+    margin-bottom: 15px;
+    color: var(--white);
+}
+
+.search span {
+    color:var(--error);
+    margin-bottom: 10px;
 }
 
 .search form {
@@ -55,8 +107,9 @@ main {
 
 .search input, .search button {
     height: 40px; 
-    border-radius: 15px;
+    border-radius: 12px;
     border: none;
+    margin-top: 5px;
 }
 
 .search input {
@@ -109,21 +162,83 @@ main {
     margin-right: 10px;
 }
 
+.search-error {
+    animation: search-error;
+    animation-duration: .2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes search-error {
+    0% {
+      transform: translateX(-10px);
+    }
+    50% {
+     transform: translateX(+10px);
+   }
+    90% {
+      transform: translateX(-10px);
+    }
+   }
+
+@keyframes search-error {
+    0% {
+      transform: translateX(-10px);
+    }
+    50% {
+     transform: translateX(+10px);
+   }
+    90% {
+      transform: translateX(-10px);
+    }
+   }
+
+/* Company Card */
+#current-company {
+    width: 45vw;
+    margin-top: 35px;
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";;
+}
+
+#current-company img {
+    width: 100px;
+    border-radius: 1000px;
+    margin-bottom: 10px;
+}
+
+#current-company i {
+    margin-top: 10px;
+}
+
 /* Repository Card */
 
 #repositories {
     margin-top: 30px;
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";;
 }
 
 .repository-card {
-    background:var(--dark-grey);
     width: 60vw;
     display: flex;
     flex-direction: row;
-    border-radius: 15px;
     padding: 10px;
-    margin-bottom: 25px;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.125);
 }
 
 .repository-card h2 {
@@ -181,7 +296,8 @@ main {
 }
 
 .view-commits {
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .view-commits button {
@@ -193,6 +309,10 @@ main {
     color: var(--white);
     padding: 2px 7px;
     border: none;
+    width: -moz-fit-content;
+    width: fit-content;
+    align-self: flex-end;
+    margin-top: -19px;
 }
 
 .view-commits button:hover {
@@ -200,6 +320,96 @@ main {
     cursor: pointer;
 }
 
-.view-commits i {
-    font-size: 21px;
+.view-commits ul {
+    margin-top: 20px; 
+    width: 100%; 
+    list-style: none;
+    height: 30vw;
+    overflow: auto;
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.view-commits li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.125);
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commit-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px 0;
+}
+
+.commit-info {
+    color: var(--mid-grey);
+}
+
+.commit-hash {
+    cursor: pointer;
+    padding: 15px 10px;
+    border-radius: 12px;
+    border: 1px solid hsla(0, 0%, 100%, 0.125);
+    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+}
+
+.commit-hash:hover {
+    background-color: var(--mid-blue);
+}
+
+.commit-hash a {
+    color: var(--grey);
+    text-decoration: none;
+}
+
+.view-commits ::-webkit-scrollbar {
+    width: 10px;
+}
+  
+.view-commits  ::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+.view-commits  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 12px;
+}
+  
+.view-commits  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Pages */
+
+#page-tabs button {
+    width: 25px;
+    height: 25px;
+    border-radius: 12px;
+    border: none;
+    color: var(--white);
+    background-color: var(--mid-grey);
+    cursor: pointer;
+}
+
+
+#page-tabs button:hover {
+    background: var(--mid-blue);
+}
+
+#page-tabs .active {
+    background-color: #006fdf;
+}
+
+footer {
+    margin-top: 50px;
+    height: 40px;
+    text-align: center;
 }
