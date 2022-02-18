@@ -2,13 +2,21 @@ $(document).ready( function() {
 
     var searchedCompany = {};
 
-    // See API Rate Limit
-    $.ajax({
-        dataType: "json",
-        url: 'https://api.github.com/rate_limit',
-        success: function(rateLimit) { 
-            console.log(rateLimit);
-        }});
+            // See API Rate Limit
+        function checkLimit() {
+            $.ajax({
+                dataType: "json",
+                url: 'https://api.github.com/rate_limit',
+                success: function(rateLimit) { 
+                    console.log('API Call limit: ' + rateLimit.rate.limit);
+                    console.log('API Calls Remaining: ' + rateLimit.rate.remaining);
+                    console.log('API Usage will reset one hour after initial use');
+
+                    if(rateLimit.rate.remaining == 0) {
+                        $('#search-failed').hide();
+                        $('#search-null').show();
+                    }
+            }})}
 
     // Search recommended company on click
     $('.recommended button').on('click', function(replaceSearch) {
@@ -19,15 +27,20 @@ $(document).ready( function() {
     // Search entered company on click
     $('#companySearch').submit( function(event) {
         event.preventDefault();
-        $('.loading').show();
+        $('.loading').fadeIn();
         $('#repositories').empty();
         $('#page-tabs').empty();
         $('#current-company').empty();
         $('#search-empty').hide();
         $('#search-failed').hide();
+        $('#search-null').hide();
         $('#current-company').hide();
+        $('#repositories').hide();
+        $('#page-tabs').hide();
+        checkLimit();
         if($('#companyName').val().trim().length === 0) {
             // Show error if field empty
+            $('.loading').hide();
             $('#search-empty').show();
             $('.search').addClass('search-error');
             setTimeout(function () { 
@@ -53,7 +66,6 @@ $(document).ready( function() {
                         '<img src="' + searchedCompany.companyAvatar + '" alt="profile picture">' +
                         '<h1>' + searchedCompany.companyName + '</h1>'+ 
                         '<a aria-label href="' + searchedCompany.companyLink + '" target="_blank"><i class="fa-brands fa-github-square"></i></a>');
-                    $('#current-company').show();
 
                     // Start pulling repositories 
                     $.each(getCompanyRepositories, function(i,e) {
@@ -92,12 +104,18 @@ $(document).ready( function() {
                             '            </div>' +
                             '    </div>' +
                             '</li>');
-                            $('#repositories').show();
+                            setTimeout(function() {
+                                $('.loading').hide();
+                                $('#current-company').fadeIn();
+                                $('#repositories').fadeIn();
+                                $('#page-tabs').fadeIn();
+                            }, 2000);
                             });
                             
                             
                             // Get Repository Commits On Click
                             $('.view-commits-btn').on('click', function(getCommits) {
+                                checkLimit();
                                 searchedCompany.searchedRepoCommits = $(this).val();
                                 repoName = $(this).val();
 
@@ -107,12 +125,12 @@ $(document).ready( function() {
 
                                 $.ajax({
                                     dataType: "json",
-                                    url: 'https://api.github.com/repos/' + searchedCompany.searchedCompany + '/' + searchedCompany.searchedRepoCommits + '/commits?per_page=100',
+                                    url: 'https://api.github.com/repos/' + searchedCompany.searchedCompany + '/' + searchedCompany.searchedRepoCommits + '/commits?per_page=20',
                                     success: function(getRepoCommits) {
 
                                         $.each(getRepoCommits, function(i,e) {
                                         var commitMessage = getRepoCommits[i].commit.message;
-                                        var commitAuthor = getRepoCommits[i].author.login;
+                                        var commitAuthor = getRepoCommits[i].committer.login;
                                         var commitSha = getRepoCommits[i].parents[0].sha;
                                         var commitUrl = getRepoCommits[i].parents[0].html_url;
                                         var commitCreated = getRepoCommits[i].commit.committer.date;
@@ -177,7 +195,7 @@ $(document).ready( function() {
                                     var startItem = currPage * rowsShown;
                                     var endItem = startItem + rowsShown;
                                     $('#repositories li').css('opacity','0.0').hide().slice(startItem, endItem).
-                                            css('display','flex').animate({opacity:1}, 300);
+                                            css('display','flex').animate({opacity:1}, 400);
                                 });
                                 $('#page-tabs button:first').trigger("click");
                             }
@@ -185,6 +203,8 @@ $(document).ready( function() {
                 },
                 error: function() {
                     // Show error if company not found
+                    checkLimit();
+                    $('.loading').fadeOut();
                     $('#search-failed').show();
                     $('.search').addClass('search-error');
                     setTimeout(function () { 
@@ -192,6 +212,5 @@ $(document).ready( function() {
                     }, 200);
                 }
             }); 
-            $('.loading').hide();
         }});
 });

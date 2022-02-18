@@ -28,6 +28,7 @@
             <h1>Search a company</h1>
             <span style="display: none;" id="search-empty">Oops! Looks like the search is empty!</span>
             <span style="display: none;" id="search-failed">Oops! Looks like we can't find that one, try another!</span>
+            <span style="display: none;" id="search-null">We can't load anymore right now, try again later!</span>
             <form id="companySearch">
                 <label for="companyName">Search Company: </label>
                 <input name="companyName" id="companyName" type="text" placeholder="Enter Company">
@@ -53,7 +54,7 @@
             <ul style="display: none;" id="repositories"></ul>
         </div>
         
-        <div id="page-tabs"></div>
+        <div style="display: none;" id="page-tabs"></div>
     </main>
 
 
