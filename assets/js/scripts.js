@@ -9,6 +9,7 @@ $(document).ready( function() {
 
     var searchedCompany = {};
 
+    // See API Rate Limit
     $.ajax({
         dataType: "json",
         url: 'https://api.github.com/rate_limit',
@@ -54,11 +55,13 @@ $(document).ready( function() {
                     searchedCompany.companyName = getCompanyRepositories[0].owner.login;
                     searchedCompany.companyLink = getCompanyRepositories[0].owner.html_url;
 
+                    // Append Company Card
                     $('#current-company').append(
                         '<img src="' + searchedCompany.companyAvatar + '" alt="profile picture">' +
                         '<h1>' + searchedCompany.companyName + '</h1>'+ 
                         '<a aria-label href="' + searchedCompany.companyLink + '" target="_blank"><i class="fa-brands fa-github-square"></i></a>');
                     $('#current-company').show();
+
                     // Start pulling repositories 
                     $.each(getCompanyRepositories, function(i,e) {
                         var self = this;
@@ -71,10 +74,7 @@ $(document).ready( function() {
                         var repoCreation = getCompanyRepositories[i].created_at;
                         
                         // Only return created date
-                        let repoDate = repoCreation.slice(0, 10);
-
-                        // Append company card
-                        
+                        let repoDate = repoCreation.slice(0, 10);                        
 
                         // Append each repository in it's own card
                         $('#repositories').append(
@@ -100,14 +100,15 @@ $(document).ready( function() {
                             '    </div>' +
                             '</li>');
                             $('#repositories').show();
-
                             });
                             
                             
-
+                            // Get Repository Commits On Click
                             $('.view-commits-btn').on('click', function(getCommits) {
                                 searchedCompany.searchedRepoCommits = $(this).val();
                                 repoName = $(this).val();
+
+                                //Swap view buttons to stop repeated api requests
                                 $('.view-commits-btn[value=' + repoName +']').hide();
                                 $('.toggle-commits-btn[value=' + repoName +']').show();
 
@@ -115,7 +116,6 @@ $(document).ready( function() {
                                     dataType: "json",
                                     url: 'https://api.github.com/repos/' + searchedCompany.searchedCompany + '/' + searchedCompany.searchedRepoCommits + '/commits',
                                     success: function(getRepoCommits) {
-                                        console.log(getRepoCommits);
 
                                         $.each(getRepoCommits, function(i,e) {
                                         var commitMessage = getRepoCommits[i].commit.message;
@@ -128,6 +128,7 @@ $(document).ready( function() {
                                         let commitHash = commitSha.slice(0, 7);
                                         let commitTitle = commitMessage.slice(0, 67);
 
+                                        // Append each commit
                                         $('[value=' + repoName +']').next('ul').append(
                                             '<li>' +
                                             '   <div class="commit">' +
@@ -144,10 +145,10 @@ $(document).ready( function() {
                                             '   </div>' +
                                             '</li>')
                                             $('[value=' + repoName +']').next('ul').slideDown();
-                                        console.log(getRepoCommits);
                                         });
                                 }});
 
+                                // Toggle view commit button
                                 $('.toggle-commits-btn[value=' + repoName +']').on('click', function() {
                                     $('[value=' + repoName +']').next('ul').slideToggle();
                                     $(this).text($(this).text() == 'Hide Commits' ? 'View Commits' : 'Hide Commits');
@@ -162,12 +163,13 @@ $(document).ready( function() {
                             }
                             pagnation()
                             });
+
+                            // Form Pages To Prevent A Really Long Page
                             function pagnation() {
                                 $('.repository-container');
                                 var rowsShown = 5;
                                 var rowsTotal = $('#repositories li').length;
                                 var numPages = rowsTotal/rowsShown;
-                                console.log(rowsTotal);
                                 for(i = 0;i < numPages;i++) {
                                     var pageNum = i + 1;
                                     $('#page-tabs').append('<button href="#" rel="'+i+'">'+pageNum+'</button> ');
